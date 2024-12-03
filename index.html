@@ -3,43 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Roulette</title>
+    <title>Roulette Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Roulette Game</h1>
-            <div id="balance">Balance: $1000</div>
-        </header>
-
-        <!-- Roulette Wheel -->
-        <div class="roulette-area">
-            <div class="roulette-wheel">
-                <div class="ball"></div>
+    <div class="game-container">
+        <div class="roulette">
+            <div class="roulette-wheel" id="roulette-wheel">
+                <svg viewBox="0 0 200 200" width="300" height="300">
+                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="5" fill="none"/>
+                    <!-- Dynamically populated with numbers in JS -->
+                    <g id="wheel-segments">
+                        <!-- Sections for numbers -->
+                    </g>
+                    <circle cx="100" cy="100" r="10" fill="green" id="zero"></circle> <!-- Green 0 -->
+                </svg>
             </div>
         </div>
-
-        <!-- Betting Area -->
         <div class="betting-area">
-            <h2>Place Your Bets</h2>
             <div class="bet-options">
-                <button data-bet="red" class="bet red">Red</button>
-                <button data-bet="black" class="bet black">Black</button>
-                <button data-bet="odd" class="bet odd">Odd</button>
-                <button data-bet="even" class="bet even">Even</button>
-                <button data-bet="green" class="bet green">Green (0)</button>
-                <input type="number" id="bet-amount" placeholder="Bet Amount" min="1">
+                <button class="bet red" data-bet="red">Red</button>
+                <button class="bet black" data-bet="black">Black</button>
+                <button class="bet odd" data-bet="odd">Odd</button>
+                <button class="bet even" data-bet="even">Even</button>
+                <button class="bet green" data-bet="green">Green (0)</button>
             </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="controls">
+            <input type="number" id="bet-amount" placeholder="Enter Bet Amount" min="1" />
             <button id="spin-button">Spin</button>
+            <div class="result"></div>
+            <div id="balance">Balance: $1000</div>
         </div>
-        
-        <div class="result"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
