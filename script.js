@@ -1,11 +1,13 @@
+// Initialize balance and current bet
+let balance = 1000;
+let currentBet = 0;
+let betChoice = null;
+
 const balanceElement = document.getElementById('balance');
 const spinButton = document.getElementById('spin-button');
 const betAmountInput = document.getElementById('bet-amount');
 const wheel = document.getElementById('roulette-wheel');
 const wheelSegments = document.getElementById('wheel-segments');
-let balance = 1000;
-let currentBet = 0;
-let betChoice = null;
 
 // Roulette wheel numbers and colors
 const wheelNumbers = [
@@ -48,7 +50,7 @@ const wheelNumbers = [
     { number: 26, color: 'black' }
 ];
 
-// Generate the roulette wheel
+// Create the roulette wheel segments
 function createWheel() {
     const anglePerSegment = 360 / wheelNumbers.length;
     
@@ -82,64 +84,51 @@ createWheel();
 
 // Handle bet selection
 document.querySelectorAll(".bet").forEach(button => {
-    button.addEventListener("click", () => {
-        betChoice = button.dataset.bet;
-        document.querySelectorAll(".bet").forEach(b => b.classList.remove("active"));
-        button.classList.add("active");
+    button.addEventListener("click", function() {
+        betChoice = this.dataset.bet;
+        updateBalance();
     });
 });
 
-// Handle spin button click
-spinButton.addEventListener("click", () => {
+// Update balance display
+function updateBalance() {
+    balanceElement.textContent = `Balance: $${balance}`;
+}
+
+// Spin the wheel
+spinButton.addEventListener("click", function() {
     const betAmount = parseInt(betAmountInput.value);
     
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
-        alert("Please enter a valid bet amount!");
-        return;
-    }
-
-    if (!betChoice) {
-        alert("Please select a bet option!");
+        alert("Please enter a valid bet amount.");
         return;
     }
 
     currentBet = betAmount;
     balance -= currentBet;
-    balanceElement.textContent = `Balance: $${balance}`;
+    updateBalance();
 
-    // Start the spin animation
-    let spinAngle = Math.random() * 360 + 720; // Spin angle between 720 and 1080 degrees
-    wheel.style.transition = "transform 4s ease-out";
-    wheel.style.transform = `rotate(${spinAngle}deg)`;
+    // Start the wheel spin animation
+    const randomSpin = Math.floor(Math.random() * 3600) + 3600; // Random spin between 3600 and 7200 degrees
+    wheel.style.transform = `rotate(${randomSpin}deg)`;
 
-    // After spin ends, show result and calculate winnings
-    setTimeout(() => {
-        const resultNumber = Math.floor((spinAngle % 360) / (360 / 37)); // Determine winning number
-        calculateResult(resultNumber);
-    }, 4000); // 4 seconds of spin duration
+    // After spin, determine the result
+    setTimeout(function() {
+        const resultIndex = Math.floor((randomSpin % 360) / (360 / wheelNumbers.length));
+        const result = wheelNumbers[resultIndex];
+        alert(`The wheel landed on ${result.number} (${result.color})`);
+
+        // Determine win or loss
+        if ((betChoice === 'red' && result.color === 'red') || 
+            (betChoice === 'black' && result.color === 'black') ||
+            (betChoice === 'green' && result.number === 0)) {
+            
+            balance += currentBet * 2; // Win the bet amount doubled
+            alert(`You win! Your balance is now $${balance}`);
+        } else {
+            alert(`You lose. Your balance is now $${balance}`);
+        }
+
+        updateBalance();
+    }, 4500); // After 4.5 seconds, stop the wheel and show the result
 });
-
-// Function to calculate the result
-function calculateResult(resultIndex) {
-    let winAmount = 0;
-    const result = wheelNumbers[resultIndex];
-    const resultText = `The ball landed on ${result.number} (${result.color})`;
-
-    // Check the bet outcome
-    if (betChoice === 'red' && result.color === 'red') {
-        winAmount = currentBet * 2;
-    } else if (betChoice === 'black' && result.color === 'black') {
-        winAmount = currentBet * 2;
-    } else if (betChoice === 'green' && result.color === 'green') {
-        winAmount = currentBet * 35; // Green bets have the highest multiplier
-    }
-
-    // Update balance based on win or loss
-    balance += winAmount;
-    balanceElement.textContent = `Balance: $${balance}`;
-
-    // Display result
-    alert(resultText);
-    betChoice = null; // Reset bet choice
-    document.querySelectorAll(".bet").forEach(b => b.classList.remove("active")); // Remove active bet class
-}
