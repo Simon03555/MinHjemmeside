@@ -7,31 +7,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div id="container">
         <h1>Roulette</h1>
-        <div class="balance">
-            <p>Balance: <span id="balance">1000</span></p>
-        </div>
-
-        <div class="bet-options">
-            <button class="bet" data-bet="red">Red</button>
-            <button class="bet" data-bet="black">Black</button>
-            <button class="bet" data-bet="green">Green</button>
-            <input type="number" id="bet-amount" placeholder="Enter bet amount" />
-        </div>
-
-        <div id="roulette-container">
-            <div id="roulette-wheel">
-                <svg id="wheel" width="300" height="300">
+        <div class="game-container">
+            <div id="wheel-container">
+                <svg id="wheel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
                     <g id="wheel-segments"></g>
+                    <circle cx="100" cy="100" r="5" id="ball"></circle>
                 </svg>
             </div>
-        </div>
 
-        <div class="spin">
-            <button id="spin-button">Spin</button>
+            <div id="bet-container">
+                <p>Balance: <span id="balance">1000</span> </p>
+                <input type="number" id="bet-amount" placeholder="Indsats" min="1">
+                <button class="bet" data-bet="red">Red</button>
+                <button class="bet" data-bet="black">Black</button>
+                <button class="bet" data-bet="green">Green</button>
+                <button id="spin-button">Spin</button>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
