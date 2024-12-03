@@ -17,63 +17,60 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     width: 80%;
     max-width: 1000px;
 }
 
-/* Header */
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px #fbc531;
-}
-
-/* Balance Display */
-#balance {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-/* Roulette Styling */
-.roulette-container {
-    position: relative;
+/* Roulette Wheel */
+.roulette-wrapper {
     width: 300px;
     height: 300px;
     margin: 20px auto;
+    position: relative;
 }
 
 .roulette-wheel {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: conic-gradient(
-        #ff0000 0% 25%,
-        #000000 25% 50%,
-        #ff0000 50% 75%,
-        #000000 75% 100%
-    );
-    border: 8px solid #fff;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(0deg);
     position: relative;
-    animation: spin 4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+    animation: none;
 }
 
-.roulette-ball {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #ffffff, #ccc);
+.number {
+    width: 20%;
+    height: 20%;
+    text-align: center;
+    line-height: 1.5;
     position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
-    animation: bounce 0.6s infinite alternate;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    transform-origin: 50% 150px;
 }
 
-/* Buttons and Input */
+.number.red {
+    background: #e74c3c;
+}
+
+.number.black {
+    background: #2c3e50;
+}
+
+.number.green {
+    background: #2ecc71;
+}
+
+/* Controls */
 .controls input,
 button {
     padding: 10px 20px;
@@ -94,37 +91,4 @@ button {
 button:hover {
     background: linear-gradient(135deg, #2980b9, #3498db);
     transform: scale(1.1);
-}
-
-.controls input {
-    border: 1px solid #fff;
-    background: #222;
-    color: #fff;
-}
-
-/* Animations */
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes bounce {
-    from {
-        top: 5%;
-    }
-    to {
-        top: 10%;
-    }
-}
-
-/* Result */
-.result {
-    font-size: 1.5em;
-    margin-top: 20px;
-    color: #fbc531;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
