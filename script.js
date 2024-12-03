@@ -26,63 +26,36 @@ document.getElementById('spin-button').addEventListener('click', function() {
         return;
     }
 
-    const wheel = document.getElementById("roulette-wheel");
-    const randomDegree = Math.floor(Math.random() * 360) + 720;
+    const ball = document.getElementById("roulette-ball");
+    const randomPosition = Math.floor(Math.random() * 580); // Random position på track
+    const resultColor = getColor(randomPosition);
     
-    // Spin rouletten
-    wheel.style.transform = "rotate(" + randomDegree + "deg)";
+    // Flyt bolden
+    ball.style.left = randomPosition + "px";
     
-    // Resultat efter 4 sekunder (venter på at hjulet stopper)
+    // Resultat efter 4 sekunder
     setTimeout(function() {
-        let result = getRouletteResult(randomDegree);
-        displayResult(result);
-        updateBalance(result);
-    }, 4000); // Vente på at hjulet stopper
+        displayResult(resultColor);
+        updateBalance(resultColor);
+    }, 4000);
 });
 
-function getRouletteResult(degree) {
-    // Bestem hvilken sektor hjulet lander på
-    const sectors = [
-        { number: 32, color: 'red' },
-        { number: 15, color: 'black' },
-        { number: 19, color: 'red' },
-        { number: 4, color: 'black' },
-        { number: 21, color: 'red' },
-        { number: 2, color: 'black' },
-        { number: 17, color: 'red' },
-        { number: 34, color: 'black' },
-        { number: 6, color: 'red' },
-        { number: 27, color: 'black' },
-        { number: 13, color: 'red' },
-        { number: 36, color: 'black' },
-        { number: 11, color: 'red' },
-        { number: 30, color: 'black' },
-        { number: 23, color: 'red' },
-        { number: 35, color: 'black' },
-        { number: 9, color: 'red' },
-        { number: 22, color: 'black' },
-        { number: 18, color: 'red' },
-        { number: 29, color: 'black' },
-        { number: 7, color: 'red' },
-        { number: 28, color: 'black' },
-        { number: 12, color: 'red' },
-        { number: 25, color: 'black' },
-        { number: 3, color: 'red' },
-        { number: 26, color: 'black' },
-        { number: 0, color: 'green' } // Grøn for 0
-    ];
-
-    const sectorIndex = Math.floor((degree % 360) / 36); // Hver sektor er 36 grader
-    return sectors[sectorIndex];
+function getColor(position) {
+    // Bestem farven afhængigt af boldens position
+    if (position < 90) return 'red'; // Første del er rød
+    if (position < 180) return 'black'; // Sort
+    if (position < 270) return 'red'; // Rød igen
+    if (position < 360) return 'black'; // Sort igen
+    return 'green'; // Sidste del er grøn
 }
 
-function displayResult(result) {
+function displayResult(resultColor) {
     // Vis resultatet på skærmen
-    let resultText = `Du landede på: ${result.number} (${result.color})`;
+    let resultText = `Du landede på: ${resultColor.toUpperCase()}`;
     document.getElementById('result').innerText = resultText;
 
     // Tjek om spilleren vinder
-    if (result.color === currentColor) {
+    if (resultColor === currentColor) {
         if (currentColor === 'green') {
             balance += currentBet * 14; // Grøn (0) giver større gevinst
         } else {
