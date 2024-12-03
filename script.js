@@ -1,15 +1,6 @@
-// Initialize balance and current bet
 let balance = 1000;
 let currentBet = 0;
 let betChoice = null;
-
-const balanceElement = document.getElementById('balance');
-const spinButton = document.getElementById('spin-button');
-const betAmountInput = document.getElementById('bet-amount');
-const wheel = document.getElementById('roulette-wheel');
-const wheelSegments = document.getElementById('wheel-segments');
-
-// Roulette wheel numbers and colors
 const wheelNumbers = [
     { number: 0, color: 'green' },
     { number: 32, color: 'red' },
@@ -50,7 +41,13 @@ const wheelNumbers = [
     { number: 26, color: 'black' }
 ];
 
-// Create the roulette wheel segments
+const balanceElement = document.getElementById('balance');
+const spinButton = document.getElementById('spin-button');
+const betAmountInput = document.getElementById('bet-amount');
+const wheel = document.getElementById('roulette-wheel');
+const wheelSegments = document.getElementById('wheel-segments');
+
+// Opret hjulsegmenterne
 function createWheel() {
     const anglePerSegment = 360 / wheelNumbers.length;
     
@@ -62,73 +59,68 @@ function createWheel() {
         const x2 = 100 + 90 * Math.cos(Math.PI * angleEnd / 180);
         const y2 = 100 + 90 * Math.sin(Math.PI * angleEnd / 180);
 
-        // Create the segments
+        // Skab segmenterne
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M100,100 L${x1},${y1} A90,90 0 ${anglePerSegment > 180 ? 1 : 0},1 ${x2},${y2} Z`);
         path.setAttribute("fill", segment.color);
         wheelSegments.appendChild(path);
         
-        // Add numbers to the segments
+        // Tilføj tal til segmenterne
         const numberText = document.createElementNS("http://www.w3.org/2000/svg", "text");
         numberText.setAttribute("x", 100 + 70 * Math.cos(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("y", 100 + 70 * Math.sin(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("fill", "white");
-        numberText.setAttribute("font-size", "12");
         numberText.setAttribute("text-anchor", "middle");
+        numberText.setAttribute("dominant-baseline", "middle");
         numberText.textContent = segment.number;
         wheelSegments.appendChild(numberText);
     });
 }
 
+// Initialiser roulettehjulet
 createWheel();
 
-// Handle bet selection
-document.querySelectorAll(".bet").forEach(button => {
-    button.addEventListener("click", function() {
-        betChoice = this.dataset.bet;
-        updateBalance();
+// Håndter indsats
+document.querySelectorAll('.bet').forEach((button) => {
+    button.addEventListener('click', (e) => {
+        betChoice = e.target.dataset.bet;
+        currentBet = parseInt(betAmountInput.value);
     });
 });
 
-// Update balance display
-function updateBalance() {
-    balanceElement.textContent = `Balance: $${balance}`;
-}
-
-// Spin the wheel
-spinButton.addEventListener("click", function() {
-    const betAmount = parseInt(betAmountInput.value);
-    
-    if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
-        alert("Please enter a valid bet amount.");
+// Rul hjul og afgør vinder
+spinButton.addEventListener('click', () => {
+    if (!betChoice || currentBet <= 0 || currentBet > balance) {
+        alert('Vælg venligst en indsats og værdi!');
         return;
     }
 
-    currentBet = betAmount;
-    balance -= currentBet;
-    updateBalance();
+    // Spænd hjul og skjul indsatsknapper
+    spinButton.disabled = true;
+    document.querySelectorAll('.bet').forEach(button => button.disabled = true);
 
-    // Start the wheel spin animation
-    const randomSpin = Math.floor(Math.random() * 3600) + 3600; // Random spin between 3600 and 7200 degrees
-    wheel.style.transform = `rotate(${randomSpin}deg)`;
+    // Simuler hjulrotation
+    const rotation = Math.floor(Math.random() * wheelNumbers.length);
+    const winningNumber = wheelNumbers[rotation];
+    const rotationAngle = rotation * (360 / wheelNumbers.length);
 
-    // After spin, determine the result
-    setTimeout(function() {
-        const resultIndex = Math.floor((randomSpin % 360) / (360 / wheelNumbers.length));
-        const result = wheelNumbers[resultIndex];
-        alert(`The wheel landed on ${result.number} (${result.color})`);
+    wheel.style.transition = 'transform 3s ease-out';
+    wheel.style.transform = `rotate(-${rotationAngle + 1440}deg)`; // Rotation på 4 komplette drejninger for effekt
 
-        // Determine win or loss
-        if ((betChoice === 'red' && result.color === 'red') || 
-            (betChoice === 'black' && result.color === 'black') ||
-            (betChoice === 'green' && result.number === 0)) {
-            
-            balance += currentBet * 2; // Win the bet amount doubled
-            alert(`You win! Your balance is now $${balance}`);
+    setTimeout(() => {
+        // Beregn og vis resultater
+        const isWin = (betChoice === winningNumber.color) || (betChoice === 'green' && winningNumber.number === 0);
+        if (isWin) {
+            balance += currentBet * 2; // Dobbelt gevinst
+            alert(`Du vandt! Nummer: ${winningNumber.number}`);
         } else {
-            alert(`You lose. Your balance is now $${balance}`);
+            balance -= currentBet; // Tab
+            alert(`Du tabte! Nummer: ${winningNumber.number}`);
         }
 
-        updateBalance();
-    }, 4500); // After 4.5 seconds, stop the wheel and show the result
+        // Opdater balance og genstart spil
+        balanceElement.textContent = `Balance: ${balance}`;
+        spinButton.disabled = false;
+        document.querySelectorAll('.bet').forEach(button => button.disabled = false);
+    }, 3000); // Vent til hjulet stopper
 });
