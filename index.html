@@ -7,32 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="roulette">
-            <div class="roulette-wheel" id="roulette-wheel">
-                <svg viewBox="0 0 200 200" width="300" height="300">
-                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="5" fill="none"/>
-                    <!-- Dynamically populated with numbers in JS -->
-                    <g id="wheel-segments">
-                        <!-- Sections for numbers -->
-                    </g>
-                    <circle cx="100" cy="100" r="10" fill="green" id="zero"></circle> <!-- Green 0 -->
-                </svg>
-            </div>
+    <div class="container">
+        <h1>Roulette Game</h1>
+        <div id="roulette-wheel">
+            <svg width="300" height="300" viewBox="0 0 200 200">
+                <g id="wheel-segments"></g>
+            </svg>
         </div>
-        <div class="betting-area">
-            <div class="bet-options">
-                <button class="bet red" data-bet="red">Red</button>
-                <button class="bet black" data-bet="black">Black</button>
-                <button class="bet odd" data-bet="odd">Odd</button>
-                <button class="bet even" data-bet="even">Even</button>
-                <button class="bet green" data-bet="green">Green (0)</button>
+
+        <div id="betting-options">
+            <div class="bet">
+                <button class="bet" data-bet="red">Bet on Red</button>
+                <button class="bet" data-bet="black">Bet on Black</button>
+                <button class="bet" data-bet="green">Bet on Green</button>
             </div>
-            <input type="number" id="bet-amount" placeholder="Enter Bet Amount" min="1" />
-            <button id="spin-button">Spin</button>
-            <div class="result"></div>
-            <div id="balance">Balance: $1000</div>
+
+            <input type="number" id="bet-amount" placeholder="Enter Bet Amount">
         </div>
+
+        <button id="spin-button">Spin</button>
+        <p id="balance">Balance: $1000</p>
     </div>
 
     <script src="script.js"></script>
