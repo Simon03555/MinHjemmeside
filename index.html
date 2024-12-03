@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette Game</title>
+    <title>Roulette</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="roulette-container">
-            <svg id="roulette-wheel" width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="200" cy="200" r="150" fill="transparent" stroke="black" stroke-width="5" />
-                <g id="wheel-segments"></g>
-                <circle id="ball" cx="200" cy="50" r="10" fill="white" />
-            </svg>
-            <button id="spin-button">Spin</button>
+        <h1>Velkommen til Roulette</h1>
+        <div id="roulette-container">
+            <div id="roulette-wheel">
+                <div id="wheel-segments"></div>
+                <div id="ball"></div>
+            </div>
         </div>
 
-        <div class="betting-area">
-            <h2>Din balance: <span id="balance">1000</span> kr.</h2>
-            <input type="number" id="bet-amount" placeholder="Sats beløb" />
-            <div class="bets">
+        <div id="betting-area">
+            <div id="balance-area">
+                <span>Balance: </span><span id="balance">1000</span>
+            </div>
+            <div id="bet-area">
+                <input type="number" id="bet-amount" placeholder="Indsats" min="1" />
                 <button class="bet" data-bet="red">Rød</button>
                 <button class="bet" data-bet="black">Sort</button>
                 <button class="bet" data-bet="green">Grøn</button>
             </div>
+            <button id="spin-button">Spin Hjulet</button>
+            <div id="result-area"></div>
         </div>
     </div>
     <script src="script.js"></script>
