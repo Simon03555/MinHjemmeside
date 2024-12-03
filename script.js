@@ -73,7 +73,7 @@ function createWheel() {
         numberText.setAttribute("x", 100 + 70 * Math.cos(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("y", 100 + 70 * Math.sin(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("fill", "white");
-        numberText.setAttribute("font-size", "10");
+        numberText.setAttribute("font-size", "12");
         numberText.setAttribute("text-anchor", "middle");
         numberText.setAttribute("dominant-baseline", "middle");
         numberText.textContent = segment.number;
@@ -81,63 +81,73 @@ function createWheel() {
     });
 }
 
-createWheel();
+// Spind funktionen
+function spinWheel() {
+    if (wheelSpinning) return; // Undgå at spinne mens det allerede spinner
+    wheelSpinning = true;
+    
+    const randomAngle = Math.floor(Math.random() * 360);
+    const spins = 5; // Antal gange hjulet skal spinne
+    const totalRotation = spins * 360 + randomAngle; // Total rotation (flere spins for effekt)
 
-// Håndter indsats
-document.querySelectorAll('.bet').forEach((button) => {
-    button.addEventListener('click', () => {
-        betChoice = button.getAttribute('data-bet');
-        betAmount = parseInt(betAmountInput.value) || 0;
-    });
-});
+    // Animer hjulrotation
+    document.getElementById("roulette-wheel").style.transform = `rotate(${totalRotation}deg)`;
 
-// Spin logik
+    // Animer kugleanimationen
+    const ballRotation = totalRotation + 180; // Kuglen skal rotere lidt bag hjulet
+    ball.style.transform = `rotate(${ballRotation}deg)`;
+
+    // Vent på at animationen er færdig
+    setTimeout(() => {
+        // Find resultatet
+        const winningSegment = wheelNumbers[Math.floor(((randomAngle + 180) % 360) / (360 / wheelNumbers.length))];
+        alert(`Resultat: ${winningSegment.number} (${winningSegment.color})`);
+        updateBalance(winningSegment);
+        wheelSpinning = false;
+    }, 5000); // Samme tid som animationen varer
+}
+
+// Opdater brugerens balance
+function updateBalance(winningSegment) {
+    if (betChoice === winningSegment.color || betChoice === 'any') {
+        balance += betAmount * 2; // Bet på farve giver dobbelt gevinst
+    } else {
+        balance -= betAmount; // Tab ved forkert valg
+    }
+    balanceElement.textContent = balance;
+}
+
+// Lyt til spin-knappen
 spinButton.addEventListener('click', () => {
-    if (wheelSpinning || betAmount <= 0 || betChoice === null) {
-        alert("Udfyld indsatsen korrekt!");
+    betAmount = parseInt(betAmountInput.value);
+    if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
+        alert("Indtast venligst et gyldigt beløb.");
         return;
     }
 
-    // Opdater balance
-    balance -= betAmount;
-    balanceElement.textContent = balance;
+    // Læs valg af bet
+    const selectedBet = document.querySelector('button.selected');
+    if (!selectedBet) {
+        alert("Vælg en indsats (rød, sort eller grøn).");
+        return;
+    }
 
-    // Start spinning animation
-    wheelSpinning = true;
-    const spinAngle = Math.floor(Math.random() * 360) + 3600; // Spin hjulet mange gange
-    const spinDuration = 5; // 5 sekunder
-    const ballAnimationDuration = spinDuration * 1000;
+    betChoice = selectedBet.getAttribute('data-bet');
 
-    // Kuglens bevægelse
-    ball.style.transition = `transform ${ballAnimationDuration}ms ease-out`;
-    ball.style.transform = `rotate(${spinAngle}deg)`;
-
-    // Hjulets bevægelse
-    document.getElementById('wheel').style.transition = `transform ${spinDuration}s ease-out`;
-    document.getElementById('wheel').style.transform = `rotate(${spinAngle}deg)`;
-
-    // Vent på at hjulet stopper
-    setTimeout(() => {
-        const result = Math.floor((spinAngle % 360) / (360 / wheelNumbers.length));
-        const winningNumber = wheelNumbers[result];
-        const winMessage = `Det vindende nummer er ${winningNumber.number} (${winningNumber.color})`;
-
-        // Vurdere om spilleren vinder
-        let win = false;
-        if (betChoice === winningNumber.color) {
-            win = true;
-            balance += betAmount * 2; // Spil vinder - 2x gevinst
-        } else if (betChoice === 'green' && winningNumber.number === 0) {
-            win = true;
-            balance += betAmount * 14; // Grøn - højere gevinst
-        }
-
-        // Opdater balance
-        balanceElement.textContent = balance;
-
-        alert(win ? `Du vandt! ${winMessage}` : `Du tabte! ${winMessage}`);
-
-        // Sæt spin tilbage til normal
-        wheelSpinning = false;
-    }, ballAnimationDuration);
+    // Spin hjulet
+    spinWheel();
 });
+
+// Lyt til bets (rød, sort, grøn)
+document.querySelectorAll('.bet').forEach(button => {
+    button.addEventListener('click', () => {
+        // Fjern tidligere valgte bet
+        document.querySelectorAll('.bet').forEach(btn => btn.classList.remove('selected'));
+        
+        // Vælg aktuelt bet
+        button.classList.add('selected');
+    });
+});
+
+// Start hjulet ved at oprette det
+createWheel();
