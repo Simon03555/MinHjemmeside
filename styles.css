@@ -1,153 +1,130 @@
-/* Global styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle, #050d24, #000000); /* Mørk gradient */
-    color: #f4f4f4;
-    text-align: center;
-    padding: 50px;
-    overflow-x: hidden;
-}
-
-/* Container */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 30px;
-    border-radius: 15px;
-    background: rgba(15, 20, 50, 0.95); /* Gennemsigtig mørk */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeIn 2s ease-in-out; /* Indgangsanimering */
-}
-
-h1 {
-    color: #fbc531; /* Gylden farve */
-    margin-bottom: 30px;
-    font-size: 3em;
-    text-shadow: 0 2px 10px rgba(251, 197, 49, 0.8);
-}
-
-/* Sats og balance */
-.bet-section {
-    margin-bottom: 30px;
-}
-
-#balance {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #76d7ff;
-    font-weight: bold;
-    text-shadow: 0 2px 5px rgba(118, 215, 255, 0.7);
-}
-
-#bet-amount {
-    padding: 12px;
-    font-size: 18px;
-    margin: 10px 0;
-    border: 1px solid #333;
-    border-radius: 8px;
-    background-color: #111;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle, #061a44, #000);
     color: #fff;
-    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Container Styling */
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 1000px;
+}
+
+/* Header */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #fbc531;
+}
+
+/* Balance Display */
+#balance {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* Roulette Styling */
+.roulette-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.roulette-wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(
+        #ff0000 0% 25%,
+        #000000 25% 50%,
+        #ff0000 50% 75%,
+        #000000 75% 100%
+    );
+    border: 8px solid #fff;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+    position: relative;
+    animation: spin 4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+
+.roulette-ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff, #ccc);
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
+    animation: bounce 0.6s infinite alternate;
+}
+
+/* Buttons and Input */
+.controls input,
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
 }
 
 button {
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #16c79a, #12a87d); /* Grøn gradient */
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
-    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    margin: 10px;
-    font-size: 20px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0, 255, 100, 0.4);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease-in-out;
 }
 
 button:hover {
-    transform: scale(1.15); /* Forstør knappen lidt */
-    background: linear-gradient(135deg, #12a87d, #16c79a);
-    box-shadow: 0 6px 25px rgba(0, 255, 100, 0.8);
-    color: #000;
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: scale(1.1);
 }
 
-button#spin-button {
-    background: linear-gradient(135deg, #3498db, #2c82c9); /* Blå gradient */
+.controls input {
+    border: 1px solid #fff;
+    background: #222;
+    color: #fff;
 }
 
-button#spin-button:hover {
-    background: linear-gradient(135deg, #2c82c9, #3498db);
-}
-
-/* Roulette styling */
-.roulette-container {
-    margin: 50px auto;
-    position: relative;
-    animation: glowPulse 2s infinite; /* Skiftende glød */
-}
-
-.roulette-track {
-    width: 700px;
-    height: 150px;
-    background: linear-gradient(90deg, #ff4d4d 0%, #333 10%, #ff4d4d 20%, #333 30%, #ff4d4d 40%, #333 50%, #00ff00 60%, #333 80%);
-    border-radius: 75px;
-    position: relative;
-    overflow: hidden;
-    border: 3px solid #ffffff; /* Lys kant */
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.8);
-}
-
-#roulette-ball {
-    width: 30px;
-    height: 30px;
-    background: radial-gradient(circle, #ffffff, #cccccc); /* Realistisk kugle */
-    border-radius: 50%;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    transition: left 4s cubic-bezier(0.25, 0.1, 0.25, 1);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
-}
-
-/* Resultat styling */
-.result {
-    margin-top: 30px;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #fbc531;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(15, 20, 50, 0.9);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-    animation: fadeIn 1s ease-in-out;
-}
-
-/* Animationer */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes glowPulse {
+/* Animations */
+@keyframes spin {
     0% {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
-    50% {
-        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+        transform: rotate(0deg);
     }
     100% {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        transform: rotate(360deg);
     }
+}
+
+@keyframes bounce {
+    from {
+        top: 5%;
+    }
+    to {
+        top: 10%;
+    }
+}
+
+/* Result */
+.result {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #fbc531;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
