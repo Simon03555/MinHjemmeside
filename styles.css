@@ -6,9 +6,9 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #001f3f, #000000); /* Mørk blå og sort */
-    color: white;
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle, #00111e, #000000); /* Subtil mørk blå/sort gradient */
+    color: #f4f4f4;
     text-align: center;
     padding: 50px;
 }
@@ -17,15 +17,16 @@ body {
 .container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8); /* Gennemsigtig sort baggrund */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Blød skygge */
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.85); /* Semi-transparent sort */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
 h1 {
-    color: #f4b400; /* Guld-farve */
+    color: #f9d342; /* Gylden farve */
     margin-bottom: 30px;
+    font-size: 2.5em;
 }
 
 /* Sats og balance */
@@ -33,37 +34,48 @@ h1 {
     margin-bottom: 30px;
 }
 
+#balance {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #89c9ff;
+}
+
 #bet-amount {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #111;
+    color: #fff;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #4CAF50; /* Grøn farve */
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #1f9d55, #17c964); /* Grøn gradient */
     color: white;
     border: none;
     cursor: pointer;
     margin: 5px;
     font-size: 18px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #45a049; /* Mørkere grøn */
+    transform: scale(1.1); /* Forstør knappen lidt */
+    background: linear-gradient(135deg, #17c964, #1f9d55); /* Omvend gradient */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
 }
 
 button#spin-button {
-    background-color: #007bff; /* Blå farve */
+    background: linear-gradient(135deg, #0056b3, #007bff); /* Blå gradient */
     margin-top: 20px;
 }
 
 button#spin-button:hover {
-    background-color: #0056b3; /* Mørkere blå */
+    background: linear-gradient(135deg, #007bff, #0056b3);
 }
 
 /* Roulette styling */
@@ -73,31 +85,36 @@ button#spin-button:hover {
 }
 
 .roulette-track {
-    width: 600px;
-    height: 100px;
-    background: linear-gradient(90deg, red 0%, black 15%, red 30%, black 45%, red 60%, black 75%, green 100%);
-    border-radius: 50px; /* Afrundede kanter */
+    width: 650px;
+    height: 120px;
+    background: linear-gradient(90deg, #ff4d4d 0%, #333 10%, #ff4d4d 20%, #333 30%, #ff4d4d 40%, #333 50%, #00ff00 60%, #333 80%);
+    border-radius: 60px; /* Halvcirkelformet kant */
     position: relative;
     overflow: hidden;
-    border: 2px solid #fff; /* Hvid kant rundt om track */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Blød skygge */
+    border: 3px solid #f4f4f4; /* Lys kant */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
 }
 
 #roulette-ball {
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%; /* Gør bolden rund */
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, #ffffff, #cccccc); /* Realistisk kugle */
+    border-radius: 50%;
     position: absolute;
-    top: 40px; /* Center i højden */
+    top: 47px; /* Center i højden */
     left: 0; /* Start ved kanten */
     transition: left 4s cubic-bezier(0.25, 0.1, 0.25, 1); /* Glat animation */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
 }
 
 /* Resultat styling */
 .result {
     margin-top: 30px;
-    font-size: 22px;
+    font-size: 1.5em;
     font-weight: bold;
-    color: #fff;
+    color: #f9d342;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.8); /* Sort baggrund */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
