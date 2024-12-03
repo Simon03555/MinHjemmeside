@@ -9,27 +9,15 @@ document.getElementById("spin-button").addEventListener("click", () => {
         return;
     }
 
-    // Start spinning
-    const spinAngle = Math.random() * 360 + 720; // Minimum 2 full rotations
-    rouletteWheel.style.transition = "transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)";
+    // Generate random spin
+    const spinAngle = Math.random() * 360 + 720;
     rouletteWheel.style.transform = `rotate(${spinAngle}deg)`;
 
-    // Stop spinning and calculate result
+    // Hide betting area and update balance
+    document.querySelector(".betting-area").style.display = "none";
     setTimeout(() => {
-        const finalAngle = spinAngle % 360; // Angle within one rotation
-        const resultIndex = Math.floor((finalAngle / 360) * 37); // Corresponding number
-
+        document.querySelector(".betting-area").style.display = "block";
         balance -= bet;
-        const resultDiv = document.querySelector(".result");
-        const isWin = Math.random() > 0.5;
-
-        if (isWin) {
-            balance += bet * 2;
-            resultDiv.textContent = `You won! Your new balance is $${balance}`;
-        } else {
-            resultDiv.textContent = `You lost! The ball landed on ${resultIndex}.`;
-        }
-
         document.getElementById("balance").textContent = `Balance: $${balance}`;
-    }, 4000); // Wait for spin to finish
+    }, 4000);
 });
