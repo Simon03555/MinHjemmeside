@@ -1,8 +1,10 @@
 let balance = 1000;
-let currentBet = 0;
-let betChoice = null;
+let currentBet = null;
 let betAmount = 0;
+let betChoice = null;
+let currentNumber = null;
 
+// Roulette hjul segmenter og farver
 const wheelNumbers = [
     { number: 0, color: 'green' },
     { number: 32, color: 'red' },
@@ -46,10 +48,10 @@ const wheelNumbers = [
 const balanceElement = document.getElementById('balance');
 const spinButton = document.getElementById('spin-button');
 const betAmountInput = document.getElementById('bet-amount');
-const wheel = document.getElementById('wheel');
+const ball = document.getElementById('ball');
 const wheelSegments = document.getElementById('wheel-segments');
 
-// Opret hjul
+// Opret hjul med segmenter
 function createWheel() {
     const anglePerSegment = 360 / wheelNumbers.length;
 
@@ -84,7 +86,6 @@ createWheel();
 document.querySelectorAll('.bet').forEach((button) => {
     button.addEventListener('click', (e) => {
         betChoice = e.target.dataset.bet;
-        currentBet = betChoice;
     });
 });
 
@@ -104,37 +105,30 @@ spinButton.addEventListener('click', () => {
     let spinDuration = Math.random() * 3 + 3;  // Random spinning time
     let spinAngle = Math.floor(Math.random() * 360);
 
-    wheel.style.transition = `transform ${spinDuration}s ease-out`;
-    wheel.style.transform = `rotate(${spinAngle + 3600}deg)`;  // Roterer mange gange for effekten
+    ball.style.transition = `transform ${spinDuration}s ease-out`;
+    ball.style.transform = `rotate(${spinAngle + 3600}deg)`;  // Roter kuglen
 
-    // Vent til hjulet er færdigt med at spinne
+    // Beregn hvilket tal kuglen lander på
     setTimeout(() => {
-        let result = Math.floor((spinAngle + 3600) % 360 / (360 / wheelNumbers.length));
-        let resultNumber = wheelNumbers[result].number;
-        let resultColor = wheelNumbers[result].color;
+        const segmentIndex = Math.floor((spinAngle % 360) / (360 / wheelNumbers.length));
+        currentNumber = wheelNumbers[segmentIndex];
 
-        // Opdater balancen baseret på resultatet
-        checkResult(resultNumber, resultColor);
-
-    }, spinDuration * 1000);  // Vent tiden af spin
+        // Vise resultatet
+        setTimeout(() => {
+            alert(`Resultat: ${currentNumber.number} - ${currentNumber.color}`);
+            checkBetResult(currentNumber);
+        }, 1000);
+    }, spinDuration * 1000);
 });
 
-function checkResult(resultNumber, resultColor) {
-    let winAmount = 0;
-
-    if (betChoice === 'red' && resultColor === 'red') {
-        winAmount = betAmount * 2;
-    } else if (betChoice === 'black' && resultColor === 'black') {
-        winAmount = betAmount * 2;
-    } else if (betChoice === 'green' && resultColor === 'green') {
-        winAmount = betAmount * 14;
-    }
-
-    if (winAmount > 0) {
-        balance += winAmount;
-        alert(`Du har vundet ${winAmount}!`);
-    } else {
-        alert(`Du har tabt. Resultatet var ${resultNumber} (${resultColor}).`);
+// Funktion for at tjekke om bettet er korrekt
+function checkBetResult(number) {
+    if (betChoice === 'red' && number.color === 'red') {
+        balance += betAmount * 2; // Vind på rød
+    } else if (betChoice === 'black' && number.color === 'black') {
+        balance += betAmount * 2; // Vind på sort
+    } else if (betChoice === 'green' && number.color === 'green') {
+        balance += betAmount * 14; // Vind på grøn
     }
 
     balanceElement.textContent = balance;
