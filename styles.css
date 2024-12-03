@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: radial-gradient(circle, #00111e, #000000); /* Subtil mørk blå/sort gradient */
-    color: #f4f4f4;
+    background: radial-gradient(circle, #0a0e27, #000000); /* Mørkere blå/sort gradient */
+    color: #e0e0e0;
     text-align: center;
     padding: 50px;
 }
@@ -19,14 +19,16 @@ body {
     margin: 0 auto;
     padding: 30px;
     border-radius: 15px;
-    background: rgba(0, 0, 0, 0.85); /* Semi-transparent sort */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    background: rgba(10, 14, 39, 0.95); /* Mørk blå baggrund */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtil kant */
 }
 
 h1 {
-    color: #f9d342; /* Gylden farve */
+    color: #fbc531; /* Gylden farve */
     margin-bottom: 30px;
-    font-size: 2.5em;
+    font-size: 3em;
+    text-shadow: 0 2px 10px rgba(251, 197, 49, 0.6); /* Glødende effekt */
 }
 
 /* Sats og balance */
@@ -35,9 +37,10 @@ h1 {
 }
 
 #balance {
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin-bottom: 20px;
-    color: #89c9ff;
+    color: #87c4ff;
+    font-weight: bold;
 }
 
 #bet-amount {
@@ -52,7 +55,7 @@ h1 {
 
 button {
     padding: 12px 25px;
-    background: linear-gradient(135deg, #1f9d55, #17c964); /* Grøn gradient */
+    background: linear-gradient(135deg, #4CAF50, #2ecc71); /* Grøn gradient */
     color: white;
     border: none;
     cursor: pointer;
@@ -65,17 +68,17 @@ button {
 
 button:hover {
     transform: scale(1.1); /* Forstør knappen lidt */
-    background: linear-gradient(135deg, #17c964, #1f9d55); /* Omvend gradient */
+    background: linear-gradient(135deg, #2ecc71, #4CAF50); /* Omvend gradient */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
 }
 
 button#spin-button {
-    background: linear-gradient(135deg, #0056b3, #007bff); /* Blå gradient */
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Blå gradient */
     margin-top: 20px;
 }
 
 button#spin-button:hover {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #2980b9, #3498db);
 }
 
 /* Roulette styling */
@@ -112,9 +115,9 @@ button#spin-button:hover {
     margin-top: 30px;
     font-size: 1.5em;
     font-weight: bold;
-    color: #f9d342;
+    color: #fbc531;
     padding: 20px;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8); /* Sort baggrund */
+    background: rgba(10, 14, 39, 0.9); /* Matchende baggrund */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
