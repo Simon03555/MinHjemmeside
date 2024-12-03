@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>Velkommen til Roulette</h1>
-        <div id="roulette-container">
-            <div id="roulette-wheel">
-                <div id="wheel-segments"></div>
-                <div id="ball"></div>
-            </div>
+        <div class="balance">
+            <p>Balance: <span id="balance">1000</span></p>
         </div>
 
-        <div id="betting-area">
-            <div id="balance-area">
-                <span>Balance: </span><span id="balance">1000</span>
+        <div class="roulette-container">
+            <div id="roulette-wheel">
+                <div id="wheel-segments"></div>
             </div>
-            <div id="bet-area">
-                <input type="number" id="bet-amount" placeholder="Indsats" min="1" />
-                <button class="bet" data-bet="red">Rød</button>
-                <button class="bet" data-bet="black">Sort</button>
-                <button class="bet" data-bet="green">Grøn</button>
-            </div>
-            <button id="spin-button">Spin Hjulet</button>
-            <div id="result-area"></div>
+            <div id="ball"></div>
         </div>
+
+        <div class="betting">
+            <button class="bet" data-bet="red">Red</button>
+            <button class="bet" data-bet="black">Black</button>
+            <button class="bet" data-bet="green">Green</button>
+            <input type="number" id="bet-amount" placeholder="Enter bet amount" />
+            <button id="spin-button">Spin</button>
+        </div>
+
+        <div id="result-area"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
