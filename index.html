@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette</title>
+    <title>Roulette Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Roulette</h1>
-        <div class="game-container">
-            <div id="wheel-container">
-                <svg id="wheel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-                    <g id="wheel-segments"></g>
-                    <circle cx="100" cy="100" r="5" id="ball"></circle>
-                </svg>
-            </div>
-
-            <div id="bet-container">
-                <p>Balance: <span id="balance">1000</span> </p>
-                <input type="number" id="bet-amount" placeholder="Indsats" min="1">
-                <button class="bet" data-bet="red">Red</button>
-                <button class="bet" data-bet="black">Black</button>
-                <button class="bet" data-bet="green">Green</button>
-                <button id="spin-button">Spin</button>
-            </div>
+    <div class="container">
+        <div class="game-header">
+            <h1>Roulette</h1>
+            <p>Din balance: <span id="balance">1000</span> kr</p>
         </div>
+
+        <div class="betting-options">
+            <button class="bet" data-bet="red">Rød</button>
+            <button class="bet" data-bet="black">Sort</button>
+            <button class="bet" data-bet="green">Grøn</button>
+            <input type="number" id="bet-amount" placeholder="Indsats" min="1">
+        </div>
+
+        <div class="wheel-container">
+            <svg id="wheel" viewBox="0 0 200 200" class="wheel">
+                <g id="wheel-segments"></g>
+                <circle id="ball" cx="100" cy="10" r="5" fill="white" />
+            </svg>
+        </div>
+
+        <button id="spin-button">Spin Hjulet</button>
     </div>
 
     <script src="script.js"></script>
