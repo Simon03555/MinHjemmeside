@@ -1,80 +1,99 @@
+/* Grundlæggende styling */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #000046, #1cb5e0);
-    color: white;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    overflow: hidden;
 }
 
-#container {
+/* Container */
+.container {
     text-align: center;
+    background-color: #1a1a1a;
+    border-radius: 10px;
     padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
+/* Spiloverskrift */
+.game-header h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
 }
 
-#wheel-container {
+.game-header p {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+/* Betting Options */
+.betting-options {
+    margin: 20px 0;
+}
+
+.betting-options button {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #444;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.betting-options button:hover {
+    background-color: #444;
+}
+
+/* Input */
+#bet-amount {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    margin-top: 10px;
+}
+
+/* Roulette Hjul */
+.wheel-container {
+    margin: 20px 0;
     position: relative;
+    width: 250px;
+    height: 250px;
+    margin: auto;
 }
 
 #wheel {
-    width: 300px;
-    height: 300px;
-    transform-origin: center;
-}
-
-#wheel-segments {
-    transform-origin: center;
-}
-
-button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #444;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #888;
-}
-
-#bet-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-input {
-    padding: 10px;
-    margin-top: 10px;
-    width: 100px;
-    text-align: center;
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-}
-
-#spin-button {
-    background-color: #ff9900;
-}
-
-#spin-button:hover {
-    background-color: #ffcc00;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    transition: transform 3s ease-out;
 }
 
 #ball {
-    fill: white;
     transition: transform 3s ease-out;
+}
+
+/* Spin Button */
+#spin-button {
+    background-color: #444;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#spin-button:hover {
+    background-color: #555;
 }
