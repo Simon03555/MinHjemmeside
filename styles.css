@@ -1,130 +1,136 @@
-* {
+/* Grundlæggende styling for hele siden */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a2a3f, #1e2a47);
+    color: white;
+    text-align: center;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0d1f2d, #2c3e50);
+/* Container til roulette og indsatsområde */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+h1 {
     color: #fff;
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+/* Hjul og kugle */
+#roulette-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+#roulette-wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 20%, rgba(0, 0, 0, 0.8) 60%);
+    position: relative;
+    transform-origin: center;
+    transition: transform 5s cubic-bezier(0.3, 1.3, 0.2, 1);
+}
+
+#ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* Segmenter på hjulet */
+#wheel-segments {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#wheel-segments div {
+    width: 50%;
+    height: 50%;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.container {
-    text-align: center;
-}
-
-.balance h2 {
-    font-size: 24px;
-}
-
-.wheel-container {
-    position: relative;
-    margin: 40px auto;
-    width: 400px;
-    height: 400px;
-}
-
-.wheel {
-    position: relative;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    background-color: #333;
-    border: 5px solid #fff;
-}
-
-.wheel-segments {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    transform-origin: 50% 50%;
-}
-
-.wheel-segments div {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    top: 0;
-    left: 50%;
-    transform-origin: 100% 50%;
-    text-align: center;
-    line-height: 40px;
     font-size: 18px;
     font-weight: bold;
     color: white;
 }
 
-.ball {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    transition: all 0.3s ease-out;
-}
-
-.bets {
-    margin-top: 30px;
+/* Styling af indsatsområde */
+#betting-area {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.bet {
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+#balance-area {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
 
-.bet:hover {
-    opacity: 0.8;
+#bet-area {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-.input-container {
-    margin-top: 20px;
-}
-
-input[type="number"] {
+#bet-area input {
     padding: 10px;
-    font-size: 16px;
-    width: 120px;
-    margin-right: 10px;
+    font-size: 1rem;
+    width: 100px;
+    text-align: center;
+}
+
+#bet-area button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    background: #333;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+#bet-area button:hover {
+    background-color: #555;
 }
 
 #spin-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #1abc9c;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: #ff4757;
     color: white;
     border: none;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #spin-button:hover {
-    background-color: #16a085;
+    background-color: #ff6b81;
 }
 
-.result-area {
+#result-area {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: bold;
 }
