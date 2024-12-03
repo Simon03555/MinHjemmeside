@@ -2,6 +2,7 @@ const balanceElement = document.getElementById('balance');
 const spinButton = document.getElementById('spin-button');
 const betAmountInput = document.getElementById('bet-amount');
 const wheel = document.getElementById('roulette-wheel');
+const wheelSegments = document.getElementById('wheel-segments');
 let balance = 1000;
 let currentBet = 0;
 let betChoice = null;
@@ -47,9 +48,8 @@ const wheelNumbers = [
     { number: 26, color: 'black' }
 ];
 
-// Generate the roulette wheel segments dynamically
+// Generate the roulette wheel
 function createWheel() {
-    const wheelSegments = document.getElementById('wheel-segments');
     const anglePerSegment = 360 / wheelNumbers.length;
     
     wheelNumbers.forEach((segment, index) => {
@@ -60,17 +60,18 @@ function createWheel() {
         const x2 = 100 + 90 * Math.cos(Math.PI * angleEnd / 180);
         const y2 = 100 + 90 * Math.sin(Math.PI * angleEnd / 180);
 
+        // Create the segments
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M100,100 L${x1},${y1} A90,90 0 ${anglePerSegment > 180 ? 1 : 0},1 ${x2},${y2} Z`);
         path.setAttribute("fill", segment.color);
         wheelSegments.appendChild(path);
         
-        // Add number to each segment
+        // Add numbers to the segments
         const numberText = document.createElementNS("http://www.w3.org/2000/svg", "text");
         numberText.setAttribute("x", 100 + 70 * Math.cos(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("y", 100 + 70 * Math.sin(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("fill", "white");
-        numberText.setAttribute("font-size", "10");
+        numberText.setAttribute("font-size", "12");
         numberText.setAttribute("text-anchor", "middle");
         numberText.textContent = segment.number;
         wheelSegments.appendChild(numberText);
@@ -106,8 +107,8 @@ spinButton.addEventListener("click", () => {
     balance -= currentBet;
     balanceElement.textContent = `Balance: $${balance}`;
 
-    // Start rotation animation
-    let spinAngle = Math.random() * 360 + 720; // Spin angle between 720 to 1080 degrees
+    // Start the spin animation
+    let spinAngle = Math.random() * 360 + 720; // Spin angle between 720 and 1080 degrees
     wheel.style.transition = "transform 4s ease-out";
     wheel.style.transform = `rotate(${spinAngle}deg)`;
 
@@ -129,15 +130,16 @@ function calculateResult(resultIndex) {
         winAmount = currentBet * 2;
     } else if (betChoice === 'black' && result.color === 'black') {
         winAmount = currentBet * 2;
-    } else if (betChoice === 'odd' && result.number % 2 !== 0 && result.number !== 0) {
-        winAmount = currentBet * 2;
-    } else if (betChoice === 'even' && result.number % 2 === 0 && result.number !== 0) {
-        winAmount = currentBet * 2;
-    } else if (betChoice === 'green' && result.number === 0) {
-        winAmount = currentBet * 35;
+    } else if (betChoice === 'green' && result.color === 'green') {
+        winAmount = currentBet * 35; // Green bets have the highest multiplier
     }
 
+    // Update balance based on win or loss
     balance += winAmount;
     balanceElement.textContent = `Balance: $${balance}`;
-    document.querySelector(".result").textContent = winAmount > 0 ? `You won $${winAmount}!` : "You lost!";
+
+    // Display result
+    alert(resultText);
+    betChoice = null; // Reset bet choice
+    document.querySelectorAll(".bet").forEach(b => b.classList.remove("active")); // Remove active bet class
 }
