@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette Game</title>
+    <title>Roulette</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Roulette Game</h1>
-        <div id="roulette-wheel">
-            <svg width="300" height="300" viewBox="0 0 200 200">
-                <g id="wheel-segments"></g>
-            </svg>
-        </div>
+        <header>
+            <h1>Roulette</h1>
+            <p>Spil og vind!</p>
+            <div id="balance">Balance: 1000</div>
+        </header>
 
-        <div id="betting-options">
-            <div class="bet">
-                <button class="bet" data-bet="red">Bet on Red</button>
-                <button class="bet" data-bet="black">Bet on Black</button>
-                <button class="bet" data-bet="green">Bet on Green</button>
+        <div class="game-container">
+            <div class="roulette-wheel-container">
+                <svg id="roulette-wheel" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="90" class="wheel-background"/>
+                    <g id="wheel-segments"></g>
+                </svg>
+                <button id="spin-button">Spin</button>
             </div>
 
-            <input type="number" id="bet-amount" placeholder="Enter Bet Amount">
+            <div class="bets-container">
+                <h3>Vælg din indsats</h3>
+                <div class="bet-buttons">
+                    <button class="bet" data-bet="red">Red</button>
+                    <button class="bet" data-bet="black">Black</button>
+                    <button class="bet" data-bet="green">Green (0)</button>
+                </div>
+                <div class="bet-amount">
+                    <label for="bet-amount">Sats: </label>
+                    <input type="number" id="bet-amount" value="10" min="1">
+                </div>
+            </div>
         </div>
-
-        <button id="spin-button">Spin</button>
-        <p id="balance">Balance: $1000</p>
     </div>
 
     <script src="script.js"></script>
