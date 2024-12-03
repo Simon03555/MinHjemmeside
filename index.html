@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moderne Roulette</title>
+    <title>Roulette Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Moderne Roulette</h1>
-        
-        <!-- Sats og Balance -->
-        <div class="bet-section">
-            <p id="balance">Balance: $100</p>
-            <label for="bet-amount">Sats beløb:</label>
-            <input type="number" id="bet-amount" min="1" placeholder="Sats penge">
-            <div>
-                <button id="bet-red">Sats på Rød</button>
-                <button id="bet-black">Sats på Sort</button>
-                <button id="bet-green">Sats på Grøn</button>
-            </div>
-        </div>
-        
-        <!-- Roulette -->
+        <h1>Spin the Wheel</h1>
+        <div id="balance">Balance: $1000</div>
         <div class="roulette-container">
-            <div class="roulette-track">
-                <div id="roulette-ball"></div>
+            <div class="roulette-wheel">
+                <div class="number">0</div>
+                <div class="number red">1</div>
+                <div class="number black">2</div>
+                <div class="number red">3</div>
+                <div class="number black">4</div>
+                <div class="number red">5</div>
+                <div class="number black">6</div>
+                <div class="number red">7</div>
+                <div class="number black">8</div>
+                <div class="number red">9</div>
+                <div class="number black">10</div>
+                <div class="number red">11</div>
+                <div class="number black">12</div>
+                <div class="number green">0</div>
             </div>
+            <div class="roulette-ball"></div>
         </div>
-        
-        <!-- Spin-knap -->
-        <button id="spin-button">Spin</button>
-        
-        <!-- Resultat -->
-        <div id="result" class="result"></div>
+        <div class="controls">
+            <input type="number" id="bet-amount" placeholder="Enter your bet" min="1">
+            <button id="spin-button">Spin</button>
+        </div>
+        <div class="result"></div>
     </div>
     <script src="script.js"></script>
 </body>
