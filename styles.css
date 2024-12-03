@@ -6,11 +6,12 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: radial-gradient(circle, #0a0e27, #000000); /* Mørkere blå/sort gradient */
-    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle, #050d24, #000000); /* Mørk gradient */
+    color: #f4f4f4;
     text-align: center;
     padding: 50px;
+    overflow-x: hidden;
 }
 
 /* Container */
@@ -19,16 +20,17 @@ body {
     margin: 0 auto;
     padding: 30px;
     border-radius: 15px;
-    background: rgba(10, 14, 39, 0.95); /* Mørk blå baggrund */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtil kant */
+    background: rgba(15, 20, 50, 0.95); /* Gennemsigtig mørk */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 2s ease-in-out; /* Indgangsanimering */
 }
 
 h1 {
     color: #fbc531; /* Gylden farve */
     margin-bottom: 30px;
     font-size: 3em;
-    text-shadow: 0 2px 10px rgba(251, 197, 49, 0.6); /* Glødende effekt */
+    text-shadow: 0 2px 10px rgba(251, 197, 49, 0.8);
 }
 
 /* Sats og balance */
@@ -37,87 +39,115 @@ h1 {
 }
 
 #balance {
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    color: #87c4ff;
+    color: #76d7ff;
     font-weight: bold;
+    text-shadow: 0 2px 5px rgba(118, 215, 255, 0.7);
 }
 
 #bet-amount {
     padding: 12px;
-    font-size: 16px;
+    font-size: 18px;
     margin: 10px 0;
-    border: 1px solid #444;
+    border: 1px solid #333;
     border-radius: 8px;
     background-color: #111;
     color: #fff;
+    width: 150px;
 }
 
 button {
-    padding: 12px 25px;
-    background: linear-gradient(135deg, #4CAF50, #2ecc71); /* Grøn gradient */
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #16c79a, #12a87d); /* Grøn gradient */
     color: white;
     border: none;
     cursor: pointer;
-    margin: 5px;
-    font-size: 18px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 255, 100, 0.4);
+    transition: all 0.4s ease;
 }
 
 button:hover {
-    transform: scale(1.1); /* Forstør knappen lidt */
-    background: linear-gradient(135deg, #2ecc71, #4CAF50); /* Omvend gradient */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    transform: scale(1.15); /* Forstør knappen lidt */
+    background: linear-gradient(135deg, #12a87d, #16c79a);
+    box-shadow: 0 6px 25px rgba(0, 255, 100, 0.8);
+    color: #000;
 }
 
 button#spin-button {
-    background: linear-gradient(135deg, #3498db, #2980b9); /* Blå gradient */
-    margin-top: 20px;
+    background: linear-gradient(135deg, #3498db, #2c82c9); /* Blå gradient */
 }
 
 button#spin-button:hover {
-    background: linear-gradient(135deg, #2980b9, #3498db);
+    background: linear-gradient(135deg, #2c82c9, #3498db);
 }
 
 /* Roulette styling */
 .roulette-container {
     margin: 50px auto;
     position: relative;
+    animation: glowPulse 2s infinite; /* Skiftende glød */
 }
 
 .roulette-track {
-    width: 650px;
-    height: 120px;
+    width: 700px;
+    height: 150px;
     background: linear-gradient(90deg, #ff4d4d 0%, #333 10%, #ff4d4d 20%, #333 30%, #ff4d4d 40%, #333 50%, #00ff00 60%, #333 80%);
-    border-radius: 60px; /* Halvcirkelformet kant */
+    border-radius: 75px;
     position: relative;
     overflow: hidden;
-    border: 3px solid #f4f4f4; /* Lys kant */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    border: 3px solid #ffffff; /* Lys kant */
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.8);
 }
 
 #roulette-ball {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     background: radial-gradient(circle, #ffffff, #cccccc); /* Realistisk kugle */
     border-radius: 50%;
     position: absolute;
-    top: 47px; /* Center i højden */
-    left: 0; /* Start ved kanten */
-    transition: left 4s cubic-bezier(0.25, 0.1, 0.25, 1); /* Glat animation */
+    top: 60px;
+    left: 0;
+    transition: left 4s cubic-bezier(0.25, 0.1, 0.25, 1);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
 }
 
 /* Resultat styling */
 .result {
     margin-top: 30px;
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #fbc531;
     padding: 20px;
     border-radius: 10px;
-    background: rgba(10, 14, 39, 0.9); /* Matchende baggrund */
+    background: rgba(15, 20, 50, 0.9);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Animationer */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
 }
