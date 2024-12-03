@@ -3,26 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min Hjemmeside med Roulette</title>
+    <title>Roulette</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Velkommen til Roulette</h1>
-    <div class="roulette-container">
-        <div class="roulette-wheel" id="roulette-wheel">
-            <div class="sector" style="background-color: red;">1</div>
-            <div class="sector" style="background-color: black;">2</div>
-            <div class="sector" style="background-color: red;">3</div>
-            <div class="sector" style="background-color: black;">4</div>
-            <div class="sector" style="background-color: red;">5</div>
-            <div class="sector" style="background-color: black;">6</div>
-            <div class="sector" style="background-color: red;">7</div>
-            <div class="sector" style="background-color: black;">8</div>
-            <div class="sector" style="background-color: red;">9</div>
-            <div class="sector" style="background-color: black;">10</div>
+    <div class="container">
+        <h1>Roulette Spil</h1>
+        
+        <!-- Spil penge og indsats -->
+        <div class="bet-section">
+            <label for="bet-amount">Sats beløb:</label>
+            <input type="number" id="bet-amount" min="1" placeholder="Sats penge">
+            <div>
+                <button id="bet-red">Sats på Rød</button>
+                <button id="bet-black">Sats på Sort</button>
+                <button id="bet-green">Sats på Grøn</button>
+            </div>
         </div>
-        <button id="spin-button">Spin</button>
+        
+        <!-- Roulette hjul -->
+        <div class="roulette-container">
+            <div class="roulette-wheel" id="roulette-wheel">
+                <!-- Sektioner af rouletten (nummer + farve) -->
+                <div class="sector red">32</div>
+                <div class="sector black">15</div>
+                <div class="sector red">19</div>
+                <div class="sector black">4</div>
+                <div class="sector red">21</div>
+                <div class="sector black">2</div>
+                <div class="sector red">17</div>
+                <div class="sector black">34</div>
+                <div class="sector red">6</div>
+                <div class="sector black">27</div>
+                <div class="sector red">13</div>
+                <div class="sector black">36</div>
+                <div class="sector red">11</div>
+                <div class="sector black">30</div>
+                <div class="sector red">23</div>
+                <div class="sector black">35</div>
+                <div class="sector red">9</div>
+                <div class="sector black">22</div>
+                <div class="sector red">18</div>
+                <div class="sector black">29</div>
+                <div class="sector red">7</div>
+                <div class="sector black">28</div>
+                <div class="sector red">12</div>
+                <div class="sector black">25</div>
+                <div class="sector red">3</div>
+                <div class="sector black">26</div>
+                <div class="sector red">0</div> <!-- Grøn -->
+            </div>
+        </div>
+        
+        <!-- Spin-knap -->
+        <div>
+            <button id="spin-button">Spin</button>
+        </div>
+        
+        <!-- Resultat -->
+        <div id="result" class="result"></div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
