@@ -79,69 +79,81 @@ function createWheel() {
     });
 }
 
-// Start spin funktion
-function startSpin() {
+// Opdater balancen
+function updateBalance() {
+    balanceElement.textContent = balance;
+}
+
+// Start spin
+function spinWheel() {
     if (wheelSpinning) return;
 
-    // Hent indsats og opdater balance
-    betAmount = parseInt(betAmountInput.value, 10);
-    if (isNaN(betAmount) || betAmount <= 0) {
-        alert("Indtast et gyldigt beløb!");
+    const betAmountInputVal = betAmountInput.value;
+    if (betAmountInputVal <= 0 || betAmountInputVal > balance) {
+        resultArea.textContent = 'Invalid bet amount!';
         return;
     }
-    if (betAmount > balance) {
-        alert("Du har ikke nok penge til at satse dette beløb!");
-        return;
-    }
-    balance -= betAmount;
-    balanceElement.innerText = balance;
 
-    // Spin hjulet
+    betAmount = parseInt(betAmountInputVal);
+    balance -= betAmount;  // Træk indsatsen fra balancen
+    updateBalance();
+
     wheelSpinning = true;
-    const spinAngle = Math.floor(Math.random() * 360) + 1440; // Random angle
-    const spinTime = 5; // Spin duration in seconds
-    const rotation = `rotate(${spinAngle}deg)`;
-    document.getElementById('roulette-wheel').style.transition = `transform ${spinTime}s ease-out`;
-    document.getElementById('roulette-wheel').style.transform = rotation;
 
-    // Start kuglens bevægelse
+    // Roter hjulet (kuglen)
+    const randomAngle = Math.floor(Math.random() * 360);
+    const rotationDuration = Math.random() * 3 + 3; // Spin varighed (3-6 sekunder)
+    wheelSegments.style.transition = `transform ${rotationDuration}s cubic-bezier(0.42, 0, 0.58, 1)`;
+    wheelSegments.style.transform = `rotate(${360 * 5 + randomAngle}deg)`; // Flere hele rotationer før den stopper
+
+    // Simuler kuglebevægelse
+    ball.style.transition = `${rotationDuration}s ease-out`;
+    ball.style.transform = `translate(-50%, -50%) rotate(${randomAngle}deg)`;
+
+    // Vent til hjulet stopper og beregn resultatet
     setTimeout(() => {
-        // Beregn resultat af spin
-        const winningIndex = Math.floor((spinAngle % 360) / (360 / wheelNumbers.length));
-        spinResult = wheelNumbers[winningIndex];
+        wheelSpinning = false;
 
-        // Vis resultat
-        setTimeout(() => {
-            displayResult(spinResult);
-        }, 1000);
-    }, spinTime * 1000);
+        // Beregn hvilken sektion der lander på
+        const wheelDeg = randomAngle % 360;
+        const segmentIndex = Math.floor(wheelDeg / (360 / wheelNumbers.length));
+        const winningSegment = wheelNumbers[segmentIndex];
+
+        spinResult = winningSegment;
+        displayResult(winningSegment);
+    }, rotationDuration * 1000); // Vent på rotationens slutning
 }
 
-// Vis resultat og opdater balance
-function displayResult(result) {
-    const resultMessage = `Vunden: ${result.number} (${result.color})`;
-    resultArea.innerText = resultMessage;
+// Vis resultat
+function displayResult(winningSegment) {
+    let message = `The ball landed on ${winningSegment.number} (${winningSegment.color})`;
 
-    // Kontroller om spiller har vundet
-    if ((betChoice === result.color && result.color !== 'green') || 
-        (betChoice === 'green' && result.color === 'green')) {
-        balance += betAmount * 2; // Gevinst for korrekt farve (dobbelt)
-        balanceElement.innerText = balance;
+    // Tjek for vinder
+    if (betChoice === winningSegment.color) {
+        const winnings = betAmount * 2;
+        balance += winnings;
+        message += `. You won $${winnings}!`;
+    } else {
+        message += `. You lost $${betAmount}.`;
     }
-    wheelSpinning = false; // Reset spin status
+
+    resultArea.textContent = message;
+    updateBalance();
 }
 
-// Håndter klik på indsatsknapper
-document.querySelectorAll('.bet').forEach(button => {
-    button.addEventListener('click', (e) => {
-        betChoice = e.target.getAttribute('data-bet');
-        document.querySelectorAll('.bet').forEach(b => b.style.backgroundColor = '#1abc9c');
-        e.target.style.backgroundColor = '#16a085';
+// Håndter bet valgmuligheder
+const betButtons = document.querySelectorAll('.bet');
+betButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        betChoice = button.dataset.bet; // Sæt valg af indsats til rød, sort eller grøn
+        resultArea.textContent = `You chose to bet on ${betChoice}`;
     });
 });
 
-// Håndter spin-knap klik
-spinButton.addEventListener('click', startSpin);
+// Spin knap funktion
+spinButton.addEventListener('click', () => {
+    spinWheel();
+});
 
-// Start hjulet når siden indlæses
-createWheel();
+// Start hjulet ved side load
+window.onload = createWheel;
