@@ -8,28 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="game-header">
-            <h1>Roulette</h1>
-            <p>Din balance: <span id="balance">1000</span> kr</p>
-        </div>
-
-        <div class="betting-options">
-            <button class="bet" data-bet="red">Rød</button>
-            <button class="bet" data-bet="black">Sort</button>
-            <button class="bet" data-bet="green">Grøn</button>
-            <input type="number" id="bet-amount" placeholder="Indsats" min="1">
-        </div>
-
-        <div class="wheel-container">
-            <svg id="wheel" viewBox="0 0 200 200" class="wheel">
+        <div class="roulette-container">
+            <svg id="roulette-wheel" width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="200" r="150" fill="transparent" stroke="black" stroke-width="5" />
                 <g id="wheel-segments"></g>
-                <circle id="ball" cx="100" cy="10" r="5" fill="white" />
+                <circle id="ball" cx="200" cy="50" r="10" fill="white" />
             </svg>
+            <button id="spin-button">Spin</button>
         </div>
 
-        <button id="spin-button">Spin Hjulet</button>
+        <div class="betting-area">
+            <h2>Din balance: <span id="balance">1000</span> kr.</h2>
+            <input type="number" id="bet-amount" placeholder="Sats beløb" />
+            <div class="bets">
+                <button class="bet" data-bet="red">Rød</button>
+                <button class="bet" data-bet="black">Sort</button>
+                <button class="bet" data-bet="green">Grøn</button>
+            </div>
+        </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
