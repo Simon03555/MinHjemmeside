@@ -1,7 +1,8 @@
-let balance = 1000;
-let betAmount = 0;
-let betChoice = null;
-let wheelSpinning = false;
+let balance = 1000; // Start balance
+let betAmount = 0; // Indsats beløb
+let betChoice = null; // Hvad er valget af indsats
+let wheelSpinning = false; // Tjek om hjulet spinner
+let spinResult = null; // Resultat af spin
 
 // Roulette numre og farver
 const wheelNumbers = [
@@ -105,49 +106,42 @@ function startSpin() {
 
     // Start kuglens bevægelse
     setTimeout(() => {
-        ball.style.transition = `${spinTime}s cubic-bezier(0.3, 1.3, 0.2, 1)`;
-        ball.style.transform = `rotate(${spinAngle}deg)`;
-    }, 100);
+        // Beregn resultat af spin
+        const winningIndex = Math.floor((spinAngle % 360) / (360 / wheelNumbers.length));
+        spinResult = wheelNumbers[winningIndex];
 
-    // Når spin er færdig, vis resultatet
-    setTimeout(() => {
-        // Find hvilket tal der blev valgt
-        const resultIndex = Math.floor(((spinAngle % 360) / 360) * wheelNumbers.length);
-        const result = wheelNumbers[resultIndex];
-
-        // Tjek vinderen
-        let resultText = `Tal: ${result.number} - Farve: ${result.color}`;
-        let wonAmount = 0;
-
-        if (result.color === betChoice) {
-            wonAmount = betAmount * 2; // Bet på farve
-        }
-
-        balance += wonAmount;
-        balanceElement.innerText = balance;
-
-        if (wonAmount > 0) {
-            resultText += `<br/>Du vandt: ${wonAmount}`;
-        } else {
-            resultText += "<br/>Du tabte!";
-        }
-
-        resultArea.innerHTML = resultText;
-        wheelSpinning = false;
+        // Vis resultat
+        setTimeout(() => {
+            displayResult(spinResult);
+        }, 1000);
     }, spinTime * 1000);
 }
 
-// Bet funktion
+// Vis resultat og opdater balance
+function displayResult(result) {
+    const resultMessage = `Vunden: ${result.number} (${result.color})`;
+    resultArea.innerText = resultMessage;
+
+    // Kontroller om spiller har vundet
+    if ((betChoice === result.color && result.color !== 'green') || 
+        (betChoice === 'green' && result.color === 'green')) {
+        balance += betAmount * 2; // Gevinst for korrekt farve (dobbelt)
+        balanceElement.innerText = balance;
+    }
+    wheelSpinning = false; // Reset spin status
+}
+
+// Håndter klik på indsatsknapper
 document.querySelectorAll('.bet').forEach(button => {
     button.addEventListener('click', (e) => {
         betChoice = e.target.getAttribute('data-bet');
-        const betColor = e.target.innerText;
-        resultArea.innerHTML = `Du har satset på ${betColor}`;
+        document.querySelectorAll('.bet').forEach(b => b.style.backgroundColor = '#1abc9c');
+        e.target.style.backgroundColor = '#16a085';
     });
 });
 
-// Spin knap
+// Håndter spin-knap klik
 spinButton.addEventListener('click', startSpin);
 
-// Start hjulopbygning
+// Start hjulet når siden indlæses
 createWheel();
