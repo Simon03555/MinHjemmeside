@@ -1,84 +1,76 @@
+/* Grundlæggende styling */
 body {
-    background: linear-gradient(135deg, #0b0c2d, #2c3e50);
     font-family: 'Arial', sans-serif;
-    color: white;
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    color: #fff;
+    overflow: hidden; /* Forhindrer scroll under spin */
+}
+
+/* Centerer roulettehjulet og spillets område */
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    position: relative;
+    overflow: hidden;
 }
 
-.game-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.roulette {
-    margin-bottom: 30px;
-}
-
-.roulette-wheel {
+/* Roulettehjulets styling */
+#roulette-wheel {
+    position: absolute;
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    border: 5px solid #b4b4b4;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    background-color: #1e2a3a;
+    transform-origin: center;
+    transition: transform 4s ease-out; /* Glat rotation */
 }
 
-.bet-options button {
-    background: #2d3f56;
-    border: 2px solid #4b6584;
-    border-radius: 50px;
+#wheel-segments {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: rotate(0deg);
+}
+
+/* Styling af de enkelte segmenter på hjulet */
+path {
+    stroke: #000;
+    stroke-width: 1px;
+}
+
+text {
+    font-size: 14px;
+    font-weight: bold;
+    fill: white;
+}
+
+/* Bet Buttons */
+button {
+    margin: 10px;
+    padding: 15px 30px;
+    background-color: #444;
+    border: none;
     color: white;
     font-size: 16px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.bet-options button:hover {
-    background: #4b6584;
-    transform: scale(1.1);
-}
-
-#bet-amount {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 18px;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    color: #444;
-}
-
-#spin-button {
-    background: #e74c3c;
-    border: none;
-    padding: 15px 30px;
-    color: white;
-    font-size: 18px;
-    border-radius: 30px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-#spin-button:hover {
-    background: #c0392b;
+button.active {
+    background-color: #2D88D1; /* Aktiv bet farve */
 }
 
-.result {
-    font-size: 18px;
-    margin-top: 20px;
+button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
 }
 
-#balance {
+/* Vis resultat og balance */
+.result, .balance {
     font-size: 20px;
+    text-align: center;
     margin-top: 20px;
-    font-weight: bold;
 }
