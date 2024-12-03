@@ -1,57 +1,102 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2d2d2d;
+    color: white;
     text-align: center;
+    padding: 50px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 h1 {
-    color: #333;
-    margin-top: 50px;
+    color: #f4b400;
+    margin-bottom: 30px;
+}
+
+.bet-section {
+    margin-bottom: 30px;
+}
+
+#bet-amount {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 .roulette-container {
-    margin-top: 30px;
-    display: inline-block;
+    margin: 30px auto;
+    position: relative;
 }
 
 .roulette-wheel {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border: 10px solid black;
     border-radius: 50%;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     position: relative;
     margin: 0 auto;
-    transition: transform 3s ease-in-out;
+    transition: transform 4s ease-out;
 }
 
 .sector {
+    position: absolute;
     width: 50%;
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 18px;
     color: white;
     text-align: center;
+    transform-origin: 100% 100%;
 }
 
-#spin-button {
-    margin-top: 30px;
-    padding: 10px 20px;
-    font-size: 18px;
+.red {
+    background-color: #f44336;
+}
+
+.black {
+    background-color: #333;
+}
+
+.green {
     background-color: #4CAF50;
     color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
 }
 
-#spin-button:hover {
-    background-color: #45a049;
+button#spin-button {
+    background-color: #2196F3;
+    margin-top: 20px;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 22px;
 }
