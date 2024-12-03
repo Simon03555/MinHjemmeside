@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette</title>
+    <title>Genialt Roulette</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Velkommen til Roulette</h1>
-        <div id="roulette-container">
-            <div id="roulette-wheel">
-                <div id="wheel-segments"></div>
+        <header>
+            <h1>🎯 Genialt Roulette</h1>
+            <p>Velkommen til den ultimative rouletteoplevelse – spil smart, spil sjovt!</p>
+        </header>
+        <main>
+            <div id="roulette-container">
+                <canvas id="roulette-wheel" width="500" height="500"></canvas>
                 <div id="ball"></div>
             </div>
-        </div>
-
-        <div id="betting-area">
-            <div id="balance-area">
-                <span>Balance: </span><span id="balance">1000</span>
+            <div id="controls">
+                <div id="balance">
+                    <p>Saldo: <span id="balance-amount">1000</span> DKK</p>
+                </div>
+                <div id="bet-options">
+                    <input type="number" id="bet-amount" placeholder="Indsats" min="1">
+                    <div class="bet-buttons">
+                        <button class="bet" data-color="red">🔴 Rød</button>
+                        <button class="bet" data-color="black">⚫ Sort</button>
+                        <button class="bet" data-color="green">🟢 Grøn</button>
+                    </div>
+                </div>
+                <button id="spin-button">🎰 SPIN</button>
+                <div id="result">
+                    <p id="result-text">Placer dit bet og spin hjulet!</p>
+                </div>
             </div>
-            <div id="bet-area">
-                <input type="number" id="bet-amount" placeholder="Indsats" min="1" />
-                <button class="bet" data-bet="red">Rød</button>
-                <button class="bet" data-bet="black">Sort</button>
-                <button class="bet" data-bet="green">Grøn</button>
-            </div>
-            <button id="spin-button">Spin Hjulet</button>
-            <div id="result-area"></div>
-        </div>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
