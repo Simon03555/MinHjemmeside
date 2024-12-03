@@ -2,25 +2,34 @@ let balance = 1000;
 
 document.getElementById("spin-button").addEventListener("click", () => {
     const bet = parseInt(document.getElementById("bet-amount").value);
+    const rouletteWheel = document.querySelector(".roulette-wheel");
 
     if (isNaN(bet) || bet <= 0 || bet > balance) {
         alert("Enter a valid bet amount!");
         return;
     }
 
-    const result = Math.floor(Math.random() * 12); // Random number
-    const resultDiv = document.querySelector(".result");
-    balance -= bet;
+    // Start spinning
+    const spinAngle = Math.random() * 360 + 720; // Minimum 2 full rotations
+    rouletteWheel.style.transition = "transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)";
+    rouletteWheel.style.transform = `rotate(${spinAngle}deg)`;
 
-    if (result === 0) {
-        balance += bet * 14; // Payout for hitting 0
-        resultDiv.textContent = `You hit 0! You win $${bet * 14}!`;
-    } else if (result % 2 === 0) {
-        balance += bet * 2; // Payout for even numbers
-        resultDiv.textContent = `You hit ${result}! You win $${bet * 2}!`;
-    } else {
-        resultDiv.textContent = `You lost! The ball landed on ${result}.`;
-    }
+    // Stop spinning and calculate result
+    setTimeout(() => {
+        const finalAngle = spinAngle % 360; // Angle within one rotation
+        const resultIndex = Math.floor((finalAngle / 360) * 37); // Corresponding number
 
-    document.getElementById("balance").textContent = `Balance: $${balance}`;
+        balance -= bet;
+        const resultDiv = document.querySelector(".result");
+        const isWin = Math.random() > 0.5;
+
+        if (isWin) {
+            balance += bet * 2;
+            resultDiv.textContent = `You won! Your new balance is $${balance}`;
+        } else {
+            resultDiv.textContent = `You lost! The ball landed on ${resultIndex}.`;
+        }
+
+        document.getElementById("balance").textContent = `Balance: $${balance}`;
+    }, 4000); // Wait for spin to finish
 });
