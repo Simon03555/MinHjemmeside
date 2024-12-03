@@ -1,4 +1,3 @@
-// Variabler
 let balance = 1000;
 let betAmount = 0;
 let betChoice = null;
@@ -59,19 +58,19 @@ function createWheel() {
     wheelNumbers.forEach((segment, index) => {
         const angleStart = anglePerSegment * index;
         const angleEnd = anglePerSegment * (index + 1);
-        const x1 = 100 + 90 * Math.cos(Math.PI * angleStart / 180);
-        const y1 = 100 + 90 * Math.sin(Math.PI * angleStart / 180);
-        const x2 = 100 + 90 * Math.cos(Math.PI * angleEnd / 180);
-        const y2 = 100 + 90 * Math.sin(Math.PI * angleEnd / 180);
+        const x1 = 200 + 150 * Math.cos(Math.PI * angleStart / 180);
+        const y1 = 200 + 150 * Math.sin(Math.PI * angleStart / 180);
+        const x2 = 200 + 150 * Math.cos(Math.PI * angleEnd / 180);
+        const y2 = 200 + 150 * Math.sin(Math.PI * angleEnd / 180);
 
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", `M100,100 L${x1},${y1} A90,90 0 ${anglePerSegment > 180 ? 1 : 0},1 ${x2},${y2} Z`);
+        path.setAttribute("d", `M200,200 L${x1},${y1} A150,150 0 ${anglePerSegment > 180 ? 1 : 0},1 ${x2},${y2} Z`);
         path.setAttribute("fill", segment.color);
         wheelSegments.appendChild(path);
 
         const numberText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        numberText.setAttribute("x", 100 + 70 * Math.cos(Math.PI * (angleStart + angleEnd) / 360));
-        numberText.setAttribute("y", 100 + 70 * Math.sin(Math.PI * (angleStart + angleEnd) / 360));
+        numberText.setAttribute("x", 200 + 120 * Math.cos(Math.PI * (angleStart + angleEnd) / 360));
+        numberText.setAttribute("y", 200 + 120 * Math.sin(Math.PI * (angleStart + angleEnd) / 360));
         numberText.setAttribute("fill", "white");
         numberText.setAttribute("font-size", "12");
         numberText.setAttribute("text-anchor", "middle");
@@ -91,10 +90,12 @@ function spinWheel() {
     const totalRotation = spins * 360 + randomAngle; // Total rotation (flere spins for effekt)
 
     // Animer hjulrotation
+    document.getElementById("roulette-wheel").style.transition = 'transform 5s ease-out';
     document.getElementById("roulette-wheel").style.transform = `rotate(${totalRotation}deg)`;
 
     // Animer kugleanimationen
     const ballRotation = totalRotation + 180; // Kuglen skal rotere lidt bag hjulet
+    ball.style.transition = 'transform 5s ease-out';
     ball.style.transform = `rotate(${ballRotation}deg)`;
 
     // Vent på at animationen er færdig
@@ -109,7 +110,7 @@ function spinWheel() {
 
 // Opdater brugerens balance
 function updateBalance(winningSegment) {
-    if (betChoice === winningSegment.color || betChoice === 'any') {
+    if (betChoice === winningSegment.color) {
         balance += betAmount * 2; // Bet på farve giver dobbelt gevinst
     } else {
         balance -= betAmount; // Tab ved forkert valg
