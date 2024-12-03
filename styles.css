@@ -1,3 +1,4 @@
+/* Global styling */
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +7,20 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #2d2d2d;
+    background: linear-gradient(135deg, #001f3f, #011627);
     color: white;
     text-align: center;
     padding: 50px;
 }
 
+/* Container */
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
@@ -22,14 +28,15 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* Sats og balance */
 .bet-section {
     margin-bottom: 30px;
 }
 
 #bet-amount {
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 button {
@@ -41,62 +48,52 @@ button {
     margin: 5px;
     font-size: 18px;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-.roulette-container {
-    margin: 30px auto;
-    position: relative;
-}
-
-.roulette-wheel {
-    width: 300px;
-    height: 300px;
-    border: 10px solid black;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin: 0 auto;
-    transition: transform 4s ease-out;
-}
-
-.sector {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    color: white;
-    text-align: center;
-    transform-origin: 100% 100%;
-}
-
-.red {
-    background-color: #f44336;
-}
-
-.black {
-    background-color: #333;
-}
-
-.green {
-    background-color: #4CAF50;
-    color: white;
-}
-
 button#spin-button {
-    background-color: #2196F3;
+    background-color: #007bff;
     margin-top: 20px;
 }
 
+button#spin-button:hover {
+    background-color: #0056b3;
+}
+
+/* Roulette styling */
+.roulette-container {
+    margin: 50px auto;
+    position: relative;
+}
+
+.roulette-track {
+    width: 600px;
+    height: 100px;
+    background: linear-gradient(90deg, red 0%, black 15%, red 30%, black 45%, red 60%, black 75%, green 100%);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+#roulette-ball {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 40px; /* Center i højden */
+    left: 0; /* Start ved kanten */
+    transition: left 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Resultat styling */
 .result {
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 22px;
+    font-weight: bold;
+    color: #fff;
 }
