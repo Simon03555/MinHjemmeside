@@ -1,8 +1,10 @@
 /* Global styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #001f3f, #000000); /* Mørk blå og sort */
+    color: white;
+    text-align: center;
+    padding: 50px;
 }
 
 body {
